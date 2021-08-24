@@ -2,7 +2,6 @@ from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveAPIV
 from .serializer import ProductSerializer
 from ..models import Product
 from rest_framework.filters import SearchFilter
-from django_filters import rest_framework as filters
 
 
 class ProductListAPIView(ListAPIView):
