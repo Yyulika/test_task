@@ -4,7 +4,7 @@ DJANGO
 Необходимые шаги для инсталляции(pip install django,pip install pymongo,pip install djongo, pip install djangorestframework)
 переходите в папку,где находится manage.py,чтобы сделать миграции и запуск сервера
 перед запуском нужно сделать( manage.py makemigrations,затем manage.py migrate)
-Команда для запуска(manage.py runserver,нужно перейти в папку)
+Команда для запуска(manage.py runserver)
 Curl-команды:
 Для создания товара : http://127.0.0.1:8000/api/product/create/
 в поле для создания прописываете,например 
