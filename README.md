@@ -6,6 +6,28 @@ DJANGO
 перед запуском нужно сделать( manage.py makemigrations,затем manage.py migrate)
 Команда для запуска(manage.py runserver)
 Curl-команды:
+На Windows я писала следующее в командной строке:
+Для создания товара:
+
+curl --location --request POST "http://127.0.0.1:8000/api/product/create/" --header "Content-Type: application/json" --data-raw "{ \"title\": \"HeadphonesLG\", \"description\": \"deviceforlistentomusic\",\"parameters\":{ \"type\":\"info\"}}"
+Результат выполнения: {"id":30,"title":"HeadphonesLG","description":"deviceforlistentomusic","parameters":{"type":"info"}}
+
+Для показа всех товаров:
+curl --location --request GET "http://127.0.0.1:8000/api/products/"
+Результат выполнения:
+[{"id":29,"title":"Headphons LG","description":"device for listen to music","parameters":{"color":"black","power":"-"}},{"id":30,"title":"HeadphonesLG","description":"deviceforlistentomusic","parameters":{"type":"info"}},{"id":31,"title":"HeadphonesLG","description":"deviceforlistentomusic","parameters":{"type":"C"}}]
+
+
+Для показа деталей по id:
+curl --location --request GET "http://127.0.0.1:8000/api/product/29/"
+Результат выполнения {"id":29,"title":"Headphons LG","description":"device for listen to music","parameters":{"color":"black","power":"-"}}
+
+Для поиска по параметрам:
+curl --location --request GET "http://127.0.0.1:8000/api/products/?search=Black"
+Результат выполнения: [{"id":29,"title":"Headphons LG","description":"device for listen to music","parameters":{"color":"black","power":"-"}},{"id":32,"title":"SmartphonesLG","description":"deviceforlistentomusic","parameters":{"color":"Black"}}]
+
+Также я тестировала url через Postman
+
 Для создания товара : http://127.0.0.1:8000/api/product/create/
 в поле для создания прописываете,например 
 {"title": "Headphones SVEN ",
@@ -15,7 +37,7 @@ Curl-команды:
             "power": "-",
             "color": "Black"}
 }
-Я тестировала url через Postman
+
 на выходе получаете:
 {
     "id": 22,
@@ -32,130 +54,63 @@ Curl-команды:
 получаете список всех товаров,примерно так:
 [
     {
-        "id": 8,
-        "title": "Smartphone Samsung",
-        "description": "mobile telephone",
+        "id": 29,
+        "title": "Headphons LG",
+        "description": "device for listen to music",
         "parameters": {
-            "operation_system": "Android",
-            "quantity_core": 8,
-            "color": "Black",
-            "price": 30000
+            "color": "black",
+            "power": "-"
         }
     },
     {
-        "id": 9,
-        "title": "Televisor LG",
-        "description": "device with screen",
+        "id": 30,
+        "title": "HeadphonesLG",
+        "description": "deviceforlistentomusic",
         "parameters": {
-            "diagonal": 24,
-            "technologies": "LED",
-            "color": "Black",
-            "price": 15000
+            "type": "info"
         }
     },
     {
-        "id": 10,
-        "title": "Televisor LG",
-        "description": "device with screen",
+        "id": 31,
+        "title": "HeadphonesLG",
+        "description": "deviceforlistentomusic",
         "parameters": {
-            "diagonal": 48,
-            "technologies": "QLED",
-            "color": "White",
-            "price": 43000
+            "type": "C"
         }
-    },
-    {
-        "id": 11,
-        "title": "Televisor Samsung",
-        "description": "device with screen",
-        "parameters": {
-            "diagonal": 54,
-            "technologies": "QLED",
-            "color": "Black",
-            "price": 35000
-        }
-    },
-    {
-        "id": 12,
-        "title": "Televisor Samsung",
-        "description": "device with screen",
-        "parameters": {
-            "diagonal": 54,
-            "technologies": "LED",
-            "color": "Black",
-            "price": 20000
-        }
-    },
-    {
-        "id": 13,
-        "title": "Smartphone Iphone 11",
-        "description": "mobile telephone",
-        "parameters": {
-            "operation_system": "IOS",
-            "quantity_core": 6,
-            "color": "Black",
-            "price": 70000
-        }
-    },
-    {
-        "id": 14,
-        "title": "Smartphone Iphone 11",
-        "description": "mobile telephone",
-        "parameters": {
-            "operation_system": "IOS",
-            "quantity_core": 6,
-            "color": "White",
-            "price": 64000
-        }
-    },
+    }
+]
     
 
-Для поиска по параметрам : http://127.0.0.1:8000/api/products/?search=(например,http://127.0.0.1:8000/api/products/?search="color": "Black")
+Для поиска по параметрам : http://127.0.0.1:8000/api/products/?search=15000
 [
     {
-        "id": 8,
-        "title": "Smartphone Samsung",
-        "description": "mobile telephone",
+        "id": 34,
+        "title": "Smartphones Samsung",
+        "description": "device for listen to music",
         "parameters": {
-            "operation_system": "Android",
-            "quantity_core": 8,
-            "color": "Black",
-            "price": 30000
-        }
-    },
-    {
-        "id": 9,
-        "title": "Televisor LG",
-        "description": "device with screen",
-        "parameters": {
-            "diagonal": 24,
-            "technologies": "LED",
-            "color": "Black",
+            "color": "white",
             "price": 15000
         }
     },
     {
-        "id": 11,
-        "title": "Televisor Samsung",
-        "description": "device with screen",
+        "id": 36,
+        "title": "Televizor Samsung",
+        "description": "device for listen to music",
         "parameters": {
-            "diagonal": 54,
-            "technologies": "QLED",
-            "color": "Black",
-            "price": 35000
+            "color": "black",
+            "price": 15000
         }
-    },
+    }
+]
 
-Получить детали товара : http://127.0.0.1:8000/api/product/id(например,http://127.0.0.1:8000/api/product/9)
+Получить детали товара : http://127.0.0.1:8000/api/product/id(например,http://127.0.0.1:8000/api/product/36)
 получаете
 {
-    "id": 9,
-    "title": "Televisor LG",
-    "description": "device with screen",
+    "id": 36,
+    "title": "Televizor Samsung",
+    "description": "device for listen to music",
     "parameters": {
-        "diagonal": 24,
-        "technologies": "LED",
-        "color": "Black",
+        "color": "black",
         "price": 15000
     }
 }
